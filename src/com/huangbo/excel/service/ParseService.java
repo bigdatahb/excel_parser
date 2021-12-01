@@ -116,11 +116,6 @@ public class ParseService {
             }
             LOG.info("页 " + sheetName + " 解析完毕, " + "共解析 " + cnt + " 行记录.");
 
-            // 若是文件大小为0， 删除文件
-            if(0 == new File(outFile).length()){
-                // 文件大小为 0 删除文件
-                new File(outFile).delete();
-            }
         } catch (FileNotFoundException e) {
             LOG.error("打开文件 " + outFile + " 失败", e);
         } catch (IOException e) {
@@ -166,6 +161,12 @@ public class ParseService {
             String sheetName = sheet.getSheetName();
             String out =  baseName + "_" + sheetName + suffix;
             ParseService.parseSheet(sheet, out);
+            // 若是文件大小为0， 删除文件
+            if(0 == new File(out).length()){
+                // 文件大小为 0 , 删除文件
+                new File(out).delete();
+            }
         }
+
     }
 }

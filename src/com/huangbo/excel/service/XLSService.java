@@ -1,16 +1,11 @@
 package com.huangbo.excel.service;
 
-import com.huangbo.excel.configs.Config;
-import com.huangbo.excel.utils.StringUtil;
+
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.usermodel.*;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.util.Calendar;
 
 /**
  * 工程: excel_parser
@@ -36,7 +31,15 @@ public class XLSService {
      */
     public void parseXls(String inFile, String outFile) {
         HSSFWorkbook hwb = getXls(inFile);
+        if(null == hwb){
+            return;
+        }
         ParseService.parseExcel(hwb, outFile);
+        try {
+            hwb.close();
+        } catch (IOException e) {
+            LOG.error("关闭文件 " + inFile + " 异常", e);
+        }
     }
 
     /**

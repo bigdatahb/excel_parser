@@ -23,7 +23,7 @@ public class Config {
 
     public static String DATA_DIR = System.getProperty("user.dir");
 
-    public static String CLEAN_DIR;
+    public static String RESULT_DIR;
 
     public static boolean RECURSIVE = false;
 
@@ -41,11 +41,8 @@ public class Config {
                     DATA_DIR = pro.getProperty(key);
                     continue;
                 }
-                if("clean_dir".equals(key)){
-                    CLEAN_DIR = pro.getProperty(key);
-                    if(StringUtil.isEmpty(CLEAN_DIR)){
-                        CLEAN_DIR = DATA_DIR;
-                    }
+                if("result_dir".equals(key)){
+                    RESULT_DIR = pro.getProperty(key);
                     continue;
                 }
                 if("recursive".equals(key)){

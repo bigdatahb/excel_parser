@@ -1,13 +1,13 @@
 package com.huangbo.excel.service;
 
-import com.huangbo.excel.configs.Config;
-import com.huangbo.excel.utils.StringUtil;
-import com.monitorjbl.xlsx.StreamingReader;
+
+import com.github.pjfanning.xlsx.StreamingReader;
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.File;
-import java.util.Calendar;
+import java.io.IOException;
+
 
 /**
  * 工程: excel_parser
@@ -33,6 +33,11 @@ public class XLSXService {
     public void parseXlsx(String inFile, String outFile) {
         Workbook wb = getXlsx(inFile);
         ParseService.parseExcel(wb, outFile);
+        try {
+            wb.close();
+        } catch (IOException e) {
+            LOG.error("关闭文件 " + inFile + " 异常", e);
+        }
     }
 
     /**
