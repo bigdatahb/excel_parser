@@ -58,11 +58,16 @@ public class Main {
             String file = f.getAbsolutePath();
             String fileName = file.substring(file.lastIndexOf(System.getProperty("file.separator")) + 1);
             if(!fileName.contains(".")){
-                LOG.info("文件 " + file + " 不是excel文件");
+//                LOG.info("文件 " + file + " 不是excel文件");
                 continue;
             }
+
             // 获取文件类型
             String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+            if(!"xls".equals(suffix) && !"xlsx".equals(suffix)){
+                continue;
+            }
+            LOG.info("开始解析文件 " + file + " ...");
             String outFile = outDir + System.getProperty("file.separator") + fileName + ".csv";
             if("xls".equalsIgnoreCase(suffix)){
                 // xls 文件
@@ -72,6 +77,7 @@ public class Main {
                 // xlsx 文件
                 xlsxService.parseXlsx(file, outFile);
             }
+            LOG.info("文件 " + fileName + " 解析完毕!");
 
         }
     }
